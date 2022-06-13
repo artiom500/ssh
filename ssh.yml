@@ -1,0 +1,19 @@
+---
+- hosts: test
+  gather_facts: no
+  tasks:
+  - name: Create new user
+    user: 
+       name: user1
+       state: present
+
+  - name: create  ssh path key
+    file:
+       path: /home/user1/.ssh
+       state: directory
+
+  - name: Copy ssh key 
+    copy:
+       src: /etc/ansible/playbooks/files/id_rsa.pub
+       dest: /home/user1/.ssh/id_rsa.pub
+       remote_src: yes
